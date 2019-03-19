@@ -15,6 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->uuid('uuid');
             $table->string('username',50);
             $table->string('email',254);
             $table->boolean('active')->default(true);

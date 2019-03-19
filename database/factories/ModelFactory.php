@@ -13,12 +13,75 @@
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
-        'name'               => $faker->name,
+        'uuid'               => $faker->uuid,
+        'username'           => $faker->userName,
         'email'              => $faker->email,
         'active'             => rand(0, 1),
         'gender'             => rand(0, 1) ? 'm' : 'f',
         'birthday'           => $faker->dateTimeBetween('-40 years', '-18 years'),
-        'location'           => "{$faker->city}, {$faker->state}",
         'bio'                => $faker->sentence(100),
+    ];
+});
+
+$factory->define(App\Tax::class, function (Faker\Generator $faker) {
+    return [
+        'rate'               => $faker->randomFloat(4,100,0),
+        'active'             => rand(0, 1),
+    ];
+});
+
+$factory->define(App\Address::class, function (Faker\Generator $faker) {
+    return [
+        'users_id'           => App\User::all()->random()->id,
+        'countries_id'       => App\Country::all()->random()->id,
+        'last_name'          => $faker->lastName,
+        'first_name'         => $faker->firstName,
+        'address_1'          => $faker->streetAddress,
+        'address_2'          => $faker->streetAddress,
+        'postcode'           => $faker->postcode,
+        'city'               => $faker->city,
+        'phone'              => $faker->e164PhoneNumber,
+        'active'             => rand(0, 1),
+    ];
+});
+
+$factory->define(App\Country::class, function (Faker\Generator $faker) {
+    return [
+        'name'               => $faker->country,
+        'iso_code'           => $faker->countryCode,
+        'locale'             => $faker->locale,
+        'active'             => rand(0, 1),
+    ];
+});
+
+$factory->define(App\Currency::class, function (Faker\Generator $faker) {
+    return [
+        'iso_code'           => $faker->currencyCode,
+        'conversion_rate'    => $faker->randomFloat(6,100000,0),
+        'countries_id'       => App\Country::all()->random()->id,
+    ];
+});
+
+
+$factory->define(App\Merchant::class, function (Faker\Generator $faker) {
+    return [
+        'name'               => $faker->userName,
+        'countries_id'       => App\Country::all()->random()->id,
+        'active'             => rand(0, 1),
+    ];
+});
+
+
+$factory->define(App\Product::class, function (Faker\Generator $faker) {
+    return [
+        'uuid'               => $faker->uuid,
+        'price'              => $faker->randomNumber(2),
+        'name'               => $faker->word,
+        'ean'                => $faker->ean13,
+        'merchants_id'       => App\Merchant::all()->random()->id,
+        'quantity_discount'  => $faker->numberBetween($min = 0, $max = 50),
+        'out_of_stock'       => rand(0, 1),
+        'on_sale'            => rand(0, 1),
+        'active'             => rand(0, 1),
     ];
 });

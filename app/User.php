@@ -10,7 +10,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
-    use Authenticatable, Authorizable;
+    use Authenticatable, Authorizable,\BinaryCabin\LaravelUUID\Traits\HasUUID;
 
     /**
      * The attributes that are mass assignable.
@@ -29,4 +29,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+
+    public function addresses()
+    {
+        return $this->hasMany('App\Address');
+    }
+
 }

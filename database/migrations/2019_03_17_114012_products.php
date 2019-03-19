@@ -15,6 +15,7 @@ class Products extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
+            $table->uuid('uuid');
             $table->decimal('price',10,2);
             $table->string('name',100);
             $table->string('ean',13);

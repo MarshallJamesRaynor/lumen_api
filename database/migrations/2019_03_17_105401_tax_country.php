@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Currencies extends Migration
+class TaxCountry extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class Currencies extends Migration
      */
     public function up()
     {
-        Schema::create('currencies', function (Blueprint $table) {
+        Schema::create('tax_country', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',50);
-            $table->string('iso_code',3);
-            $table->decimal('conversion_rate',13,6);
-            $table->timestamps();
+            $table->integer('tax_id')->unsigned();
+            $table->foreign('tax_id')->references('id')->on('taxes');
+            $table->integer('country_id')->unsigned();
+            $table->foreign('country_id')->references('id')->on('countries');
         });
     }
 
@@ -29,6 +29,7 @@ class Currencies extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('currencies');
+        Schema::dropIfExists('tax_country');
+
     }
 }

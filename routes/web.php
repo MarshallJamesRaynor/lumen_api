@@ -17,7 +17,27 @@ use Illuminate\Http\Request;
 $router->group(['prefix' => 'api/v1'], function ($router)
 {
     $router->get('/', function () use ($router) {
-        return $router->app->version();
+        $taxes =  App\Tax::find(1);
+        $country =  App\Country::find(1);
+        $country->taxes()->attach($taxes);
+        return App\Tax::find(1);
     });
+
+    $router->group(['prefix' => 'products'], function () use ($router) {
+        $router->get('/', function ()    {
+            // Matches The "/admin/users" URL
+        });
+    });
+    $router->group(['prefix' => 'orders'], function () use ($router) {
+        $router->get('/', function ()    {
+            // Matches The "/admin/users" URL
+        });
+    });
+    $router->group(['prefix' => 'users'], function () use ($router) {
+        $router->get('/', function ()    {
+            // Matches The "/admin/users" URL
+        });
+    });
+
 });
 

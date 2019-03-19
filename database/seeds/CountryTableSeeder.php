@@ -2,7 +2,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class UserTableSeeder extends Seeder {
+class CountryTableSeeder extends Seeder {
 
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class UserTableSeeder extends Seeder {
     public function run()
     {
         Model::unguard();
-        return factory(App\User::class, 10)->create();
+        return factory(App\Country::class, 10)->create();
     }
 
 }

@@ -17,6 +17,7 @@ class Countries extends Migration
             $table->increments('id');
             $table->string('name',80);
             $table->string('iso_code',3);
+            $table->string('locale',8);
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();
