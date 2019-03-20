@@ -25,19 +25,19 @@ $router->group(['prefix' => 'api/v1'], function ($router) {
         $router->delete('{uuid}', 'UserController@destroy');
     });
 
-    $router->group(['prefix' => '/products'], function ($router) {
-        $router->get('/', 'UserController@index');
-        $router->post('/', 'UserController@store');
-        $router->get('{uuid}','UserController@show');
-        $router->put('{uuid}', 'UserController@update');
-        $router->delete('{uuid}', 'UserController@destroy');
+    $router->group(['prefix' => '/product'], function ($router) {
+        $router->get('/', 'ProductController@index');
+        $router->post('/', 'ProductController@store');
+        $router->get('{uuid}','ProductController@show');
+        $router->put('{uuid}', 'ProductController@update');
+        $router->delete('{uuid}', 'ProductController@destroy');
     });
     $router->group(['prefix' => '/order'], function ($router) {
-        $router->get('/', 'UserController@index');
-        $router->post('/', 'UserController@store');
-        $router->get('{uuid}','UserController@show');
-        $router->put('{uuid}', 'UserController@update');
-        $router->delete('{uuid}', 'UserController@destroy');
+        $router->get('/', 'OrderController@index');
+        $router->post('/', 'OrderController@store');
+        $router->get('{uuid}','OrderController@show');
+        $router->put('{uuid}', 'OrderController@update');
+        $router->delete('{uuid}', 'OrderController@destroy');
     });
 
 

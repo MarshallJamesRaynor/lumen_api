@@ -6,9 +6,9 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 use Validator;
 use Illuminate\Http\Request;
 
-use App\User;
-use App\Http\Resources\UserCollection;
-use App\Http\Resources\User as UserResource;
+use App\Product;
+use App\Http\Resources\ProductCollection;
+use App\Http\Resources\Product as ProductResource;
 
 
 class ProductController extends BaseController
@@ -24,7 +24,7 @@ class ProductController extends BaseController
     {
         $validator = Validator::make(['uuid' => $uuid],['uuid' => 'uuid']);
         if($validator->passes()){
-            return new UserResource(User::findByUuid($uuid));
+            return new ProductResource(Product::findByUuid($uuid));
         }else{
             return 'pippa';
         }
@@ -33,14 +33,12 @@ class ProductController extends BaseController
 
     public function index()
     {
-        UserResource::withoutWrapping();
-        return new UserCollection(User::paginate());
+        return new ProductCollection(Product::paginate());
     }
 
     public function store(Request $request)
     {
-        UserResource::withoutWrapping();
-        return new UserResource($request);
+        return new ProductResource($request);
     }
 
     public function update(Request $request)

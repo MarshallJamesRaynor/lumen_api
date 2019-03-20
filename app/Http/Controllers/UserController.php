@@ -33,18 +33,16 @@ class UserController extends BaseController
     }
 
     public function testEmail(){
-        Mail::raw('ciao fede', function($msg) { $msg->to(['p.combi84@gmail.com']); });
+        Mail::raw('ciao ', function($msg) { $msg->to(['p.combi84@gmail.com']); });
         return '1';
     }
     public function index()
     {
-        UserResource::withoutWrapping();
         return new UserCollection(User::paginate());
     }
 
     public function store(Request $request)
     {
-        UserResource::withoutWrapping();
         return new UserResource($request);
     }
 
