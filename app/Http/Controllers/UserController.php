@@ -21,30 +21,38 @@ class UserController extends BaseController
      *
      * @return UserResource
      */
-    public function show($uuid)
-    {
-        $validator = Validator::make(['uuid' => $uuid],['uuid' => 'uuid']);
-        if($validator->passes()){
-            return new UserResource(User::findByUuid($uuid));
-        }else{
-            return 'pippa';
-        }
-
-    }
 
     public function testEmail(){
         Mail::raw('ciao ', function($msg) { $msg->to(['p.combi84@gmail.com']); });
         return '1';
     }
+
     public function index()
     {
         return new UserCollection(User::paginate());
     }
 
+    public function show($uuid)
+    {
+        $validator = Validator::make(['uuid' => $uuid],['uuid' => 'uuid']);
+        if($validator->passes()){
+            return new UserResource(User::findByUuid($uuid));
+        }
+    }
+
+
+    public function create()
+    {
+        return factory(User::class, 1)->create();
+    }
+
+
+
     public function store(Request $request)
     {
         return new UserResource($request);
     }
+
 
     public function update(Request $request)
     {
