@@ -10,9 +10,8 @@ use App\User;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\User as UserResource;
 
-use Illuminate\Support\Facades\Mail;
 
-class UserController extends BaseController
+class OrderController extends BaseController
 {
     /**
      * Display the specified resource.
@@ -32,10 +31,6 @@ class UserController extends BaseController
 
     }
 
-    public function testEmail(){
-        Mail::raw('ciao fede', function($msg) { $msg->to(['p.combi84@gmail.com']); });
-        return '1';
-    }
     public function index()
     {
         UserResource::withoutWrapping();

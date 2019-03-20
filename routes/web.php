@@ -15,6 +15,8 @@
 
 
 $router->group(['prefix' => 'api/v1'], function ($router) {
+    $router->get('/testEmail', 'UserController@aaaa');
+
     $router->group(['prefix' => '/user'], function ($router) {
         $router->get('/', 'UserController@index');
         $router->post('/', 'UserController@store');
@@ -37,6 +39,8 @@ $router->group(['prefix' => 'api/v1'], function ($router) {
         $router->put('{uuid}', 'UserController@update');
         $router->delete('{uuid}', 'UserController@destroy');
     });
+
+
 
 
 
