@@ -23,7 +23,7 @@ class Country extends Model
     public function merchants(){
         return $this->hasMany('App\Merchant');
     }
-    
+
     public function currencies(){
         return $this->hasMany('App\Currency');
     }

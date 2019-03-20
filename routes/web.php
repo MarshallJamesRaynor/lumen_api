@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,30 +14,34 @@ use Illuminate\Http\Request;
 */
 
 
-$router->group(['prefix' => 'api/v1'], function ($router)
-{
-    $router->get('/', function () use ($router) {
-        $taxes =  App\Tax::find(1);
-        $country =  App\Country::find(1);
-        $country->taxes()->attach($taxes);
-        return App\Tax::find(1);
+$router->group(['prefix' => 'api/v1'], function ($router) {
+    $router->group(['prefix' => '/user'], function ($router) {
+        $router->get('/', 'UserController@index');
+        $router->post('/', 'UserController@store');
+        $router->get('{uuid}','UserController@show');
+        $router->put('{uuid}', 'UserController@update');
+        $router->delete('{uuid}', 'UserController@destroy');
     });
 
-    $router->group(['prefix' => 'products'], function () use ($router) {
-        $router->get('/', function ()    {
-            // Matches The "/admin/users" URL
-        });
+    $router->group(['prefix' => '/products'], function ($router) {
+        $router->get('/', 'UserController@index');
+        $router->post('/', 'UserController@store');
+        $router->get('{uuid}','UserController@show');
+        $router->put('{uuid}', 'UserController@update');
+        $router->delete('{uuid}', 'UserController@destroy');
     });
-    $router->group(['prefix' => 'orders'], function () use ($router) {
-        $router->get('/', function ()    {
-            // Matches The "/admin/users" URL
-        });
+    $router->group(['prefix' => '/order'], function ($router) {
+        $router->get('/', 'UserController@index');
+        $router->post('/', 'UserController@store');
+        $router->get('{uuid}','UserController@show');
+        $router->put('{uuid}', 'UserController@update');
+        $router->delete('{uuid}', 'UserController@destroy');
     });
-    $router->group(['prefix' => 'users'], function () use ($router) {
-        $router->get('/', function ()    {
-            // Matches The "/admin/users" URL
-        });
-    });
+
+
+
 
 });
+
+
 
