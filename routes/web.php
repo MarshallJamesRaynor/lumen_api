@@ -26,9 +26,9 @@ $router->group(['prefix' => 'api/v1'], function ($router) {
     });
 
     $router->group(['prefix' => '/product'], function ($router) {
-        $router->get('/', 'ProductController@index');
+        $router->get('/',['as' => 'product.index', 'uses' => 'ProductController@index']);
         $router->post('/', 'ProductController@store');
-        $router->get('{uuid}','ProductController@show');
+        $router->get('{uuid}', ['as' => 'product.show', 'uses' => 'ProductController@show']);
         $router->put('{uuid}', 'ProductController@update');
         $router->delete('{uuid}', 'ProductController@destroy');
     });

@@ -25,6 +25,9 @@ class Product extends JsonResource
                 'out_of_stock' => (boolean) $this->out_of_stock,
                 'on_sale' =>  (boolean) $this->on_sale,
                 'active' =>  (boolean)  $this->active,
+            ],
+            'links'         => [
+                'self' => route('product.show', ['uuid' => $this->uuid]),
             ]
         ];
     }
