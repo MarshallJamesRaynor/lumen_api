@@ -16,8 +16,8 @@ class Merchants extends Migration
         Schema::create('merchants', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name',50);
-            $table->integer('countries_id')->unsigned();
-            $table->foreign('countries_id')->references('id')->on('countries');
+            $table->integer('country_id')->unsigned();
+            $table->foreign('country_id')->references('id')->on('countries');
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();

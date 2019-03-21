@@ -15,10 +15,10 @@ class Addresses extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('countries_id')->unsigned();
-            $table->foreign('countries_id')->references('id')->on('countries');
-            $table->integer('users_id')->unsigned();
-            $table->foreign('users_id')->references('id')->on('users');
+            $table->integer('country_id')->unsigned();
+            $table->foreign('country_id')->references('id')->on('countries');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('last_name',50);
             $table->string('first_name',50);
             $table->string('address_1',254);

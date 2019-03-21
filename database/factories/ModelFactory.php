@@ -32,8 +32,8 @@ $factory->define(App\Tax::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Address::class, function (Faker\Generator $faker) {
     return [
-        'users_id'           => App\User::all()->random()->id,
-        'countries_id'       => App\Country::all()->random()->id,
+        'user_id'           => App\User::all()->random()->id,
+        'country_id'       => App\Country::all()->random()->id,
         'last_name'          => $faker->lastName,
         'first_name'         => $faker->firstName,
         'address_1'          => $faker->streetAddress,
@@ -58,7 +58,7 @@ $factory->define(App\Currency::class, function (Faker\Generator $faker) {
     return [
         'iso_code'           => $faker->currencyCode,
         'conversion_rate'    => $faker->randomFloat(6,100000,0),
-        'countries_id'       => App\Country::all()->random()->id,
+        'country_id'       => App\Country::all()->random()->id,
     ];
 });
 
@@ -66,7 +66,7 @@ $factory->define(App\Currency::class, function (Faker\Generator $faker) {
 $factory->define(App\Merchant::class, function (Faker\Generator $faker) {
     return [
         'name'               => $faker->userName,
-        'countries_id'       => App\Country::all()->random()->id,
+        'country_id'       => App\Country::all()->random()->id,
         'active'             => rand(0, 1),
     ];
 });
@@ -78,7 +78,7 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
         'price'              => $faker->randomNumber(2),
         'name'               => $faker->word,
         'ean'                => $faker->ean13,
-        'merchants_id'       => App\Merchant::all()->random()->id,
+        'merchant_id'       => App\Merchant::all()->random()->id,
         'quantity_discount'  => $faker->numberBetween($min = 0, $max = 50),
         'out_of_stock'       => rand(0, 1),
         'on_sale'            => rand(0, 1),

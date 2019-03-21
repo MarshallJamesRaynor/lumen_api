@@ -14,8 +14,8 @@ class OrdersState extends Migration
     public function up()
     {
         Schema::create('orders_state', function (Blueprint $table) {
-            $table->integer('orders_id')->unsigned()->primary();
-            $table->foreign('orders_id')->references('id')->on('orders');
+            $table->integer('order_id')->unsigned()->primary();
+            $table->foreign('order_id')->references('id')->on('orders');
             $table->string('custom_email',254);
             $table->boolean('send_email')->default(false);
             $table->boolean('send_invoice')->default(false);

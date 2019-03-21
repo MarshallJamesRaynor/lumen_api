@@ -19,8 +19,8 @@ class Products extends Migration
             $table->decimal('price',10,2);
             $table->string('name',100);
             $table->string('ean',13);
-            $table->integer('merchants_id')->unsigned();
-            $table->foreign('merchants_id')->references('id')->on('merchants');
+            $table->integer('merchant_id')->unsigned();
+            $table->foreign('merchant_id')->references('id')->on('merchants');
             $table->integer('quantity_discount');
             $table->boolean('out_of_stock')->default(false);
             $table->boolean('on_sale')->default(false);

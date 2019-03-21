@@ -15,8 +15,8 @@ class Currencies extends Migration
     {
         Schema::create('currencies', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('countries_id')->unsigned();
-            $table->foreign('countries_id')->references('id')->on('countries');
+            $table->integer('country_id')->unsigned();
+            $table->foreign('country_id')->references('id')->on('countries');
             $table->string('iso_code',3);
             $table->decimal('conversion_rate',13,6);
             $table->timestamps();
