@@ -20,9 +20,10 @@ class ProductController extends BaseController
      *
      * @return UserResource
      */
-    public function show($uuid)
-    {
+    public function show($uuid){
+
         $validator = Validator::make(['uuid' => $uuid],['uuid' => 'uuid']);
+
         if($validator->passes()){
             return new ProductResource(Product::findByUuid($uuid));
         }else{
@@ -31,23 +32,17 @@ class ProductController extends BaseController
 
     }
 
-    public function index()
-    {
+    public function index(){
         return new ProductCollection(Product::paginate());
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         return new ProductResource($request);
     }
 
-    public function update(Request $request)
-    {
-
+    public function update(Request $request){
     }
 
-    public function destroy(Request $request)
-    {
-
+    public function destroy(Request $request){
     }
 }

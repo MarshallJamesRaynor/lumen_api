@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\Http\Requests\OrderStoreRequest;
 
-
+use Webpatser\Uuid\Uuid;
 class OrderController extends BaseController
 {
 
@@ -18,18 +18,35 @@ class OrderController extends BaseController
         return 1;
     }
 
-    public function store(OrderStoreRequest $request)
+    public function store(Request $request)
     {
-       return $request->validated();
+        $this->validate($request, [
+            'email' => 'email',
+            'country' => 'required|string|max:50',
+            'format_invoice' => 'required|string|max:50',
+            'sent_email' => 'required|boolean',
+            'product.*.uuid' => 'required|uuid',
+            'product.*.quantity' => 'required|numeric',
+        ]);
+
+
+        $order =  Order::create(['uuid'=>(string) Uuid::generate()]);
+        $order->orderItems()->create([
+            'product_id'=>1,
+            'tax_id'=>1,
+            'quantity'=>11,
+            'price'=>1,
+            'discounted_price'=>1,
+            'taxes_price'=>1
+        ]);
+
     }
 
-    public function update(Request $request)
-    {
+    public function update(Request $request){
 
     }
 
-    public function destroy(Request $request)
-    {
+    public function destroy(Request $request){
 
     }
 }
