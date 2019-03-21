@@ -50,7 +50,7 @@ $router->group(['prefix' => 'api/v1'], function ($router) {
     });
     $router->group(['prefix' => '/order'], function ($router) {
         //$router->get('{uuid}','OrderController@show');
-        $router->post('/asd', 'OrderController@store');
+        $router->post('/', 'OrderController@store');
         $router->get('/', 'OrderController@index');
 
         //$router->put('{uuid}', 'OrderController@update');
