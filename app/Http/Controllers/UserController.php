@@ -41,9 +41,9 @@ class UserController extends BaseController
     }
 
 
-    public function create()
-    {
+    public function create(){
         return factory(User::class, 1)->create();
+
     }
 
 

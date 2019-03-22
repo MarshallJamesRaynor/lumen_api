@@ -1,15 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 use Validator;
-use Illuminate\Http\Request;
-
+use Webpatser\Uuid\Uuid;
 use App\Order;
 use App\Http\Requests\OrderStoreRequest;
 
-use Webpatser\Uuid\Uuid;
 class OrderController extends BaseController
 {
 

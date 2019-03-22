@@ -4,8 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Country extends Model
-{
+class Country extends Model{
     public function taxes(){
         return $this->belongsToMany(
             'App\Tax',

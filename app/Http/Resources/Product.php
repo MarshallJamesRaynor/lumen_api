@@ -31,4 +31,18 @@ class Product extends JsonResource
             ]
         ];
     }
+    /**
+     * Get additional data that should be returned with the resource array.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    public function with($request)
+    {
+        return [
+            'jsonapi' => [
+                'version' => env('APP_VERSION_API'),
+            ],
+        ];
+    }
 }

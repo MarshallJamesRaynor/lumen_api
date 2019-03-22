@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Merchant extends Model
-{
+class Merchant extends Model{
 
 }

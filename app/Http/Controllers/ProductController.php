@@ -10,9 +10,13 @@ use App\Product;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\Product as ProductResource;
 
+use Webpatser\Uuid\Uuid;
+
 
 class ProductController extends BaseController
 {
+    use \App\Traits\ErrorTraits;
+
     /**
      * Display the specified resource.
      *
@@ -25,9 +29,21 @@ class ProductController extends BaseController
         $validator = Validator::make(['uuid' => $uuid],['uuid' => 'uuid']);
 
         if($validator->passes()){
-            return new ProductResource(Product::findByUuid($uuid));
+            if($product = Product::findByUuid($uuid)){
+                return new ProductResource($product);
+            }else{
+                return $this->customErrorFormat(
+                    422,
+                    '/data/uuid',
+                    'Invalid Attribute',
+                    'uuid you give not exist');
+            }
         }else{
-            return 'pippa';
+             return $this->customErrorFormat(
+                422,
+                '/data/uuid',
+                'Invalid Attribute',
+                'uuid you give is wrong');
         }
 
     }
@@ -38,6 +54,10 @@ class ProductController extends BaseController
 
     public function store(Request $request){
         return new ProductResource($request);
+    }
+    public function create(){
+        $product = factory(Product::class, 1)->create();
+        return new ProductResource(Product::findByUuid($product[0]->uuid));
     }
 
     public function update(Request $request){

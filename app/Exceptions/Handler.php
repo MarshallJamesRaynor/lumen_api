@@ -51,11 +51,8 @@ class Handler extends ExceptionHandler
             return response(view("errors.error",['message'=>'The page you are looking for cannot be displayed','status'=>$status]), $status);
         }
 
-        if (env('APP_DEBUG')) {
-            return parent::render($request, $exception);
-        } else {
+        if (!env('APP_DEBUG')) {
             return response(view("errors.error",['message'=>'Something went terribly wrong!','status'=>500]), 500);
-
         }
         return parent::render($request, $exception);
     }
