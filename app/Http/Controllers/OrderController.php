@@ -8,13 +8,13 @@ use Validator;
 use Webpatser\Uuid\Uuid;
 use App\Order;
 use App\Http\Requests\OrderStoreRequest;
-
+use Auth;
 class OrderController extends BaseController
 {
 
     public function index()
     {
-        return 1;
+        return Auth::user()->id;
     }
 
     public function store(Request $request)

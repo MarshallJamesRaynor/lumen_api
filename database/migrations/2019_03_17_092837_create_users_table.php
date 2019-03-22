@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->boolean('active')->default(true);
             $table->enum('gender', ['m', 'f'])->nullable();
             $table->dateTime('birthday')->nullable();
+            $table->string('password');
             $table->text('bio')->nullable();
             $table->timestamps();
             $table->softDeletes();

@@ -14,7 +14,7 @@
 */
 
 
-$router->group(['prefix' => 'api/v1'], function ($router) {
+$router->group(['prefix' => 'api/v1','middleware'=>'auth'], function ($router) {
     $router->group(['prefix' => '/user'], function ($router) {
         $router->get('/create', 'UserController@create');
         $router->get('/',[
@@ -25,6 +25,7 @@ $router->group(['prefix' => 'api/v1'], function ($router) {
             'as' => 'user.show',
             'uses' => 'UserController@show'
         ]);
+
     });
 
     $router->group(['prefix' => '/product'], function ($router) {
@@ -39,7 +40,13 @@ $router->group(['prefix' => 'api/v1'], function ($router) {
         ]);
     });
     $router->group(['prefix' => '/order'], function ($router) {
-        $router->post('/', 'OrderController@store');
+        $router->post('/', [
+            'middleware' => [
+                'beforeOrder',
+                'afterOrder'
+            ],
+            'uses'=>'OrderController@store'
+        ]);
         $router->get('/', 'OrderController@index');
         $router->get('{uuid}','OrderController@show');
 

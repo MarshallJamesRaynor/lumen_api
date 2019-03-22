@@ -16,6 +16,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'uuid'               => $faker->uuid,
         'username'           => $faker->userName,
         'email'              => $faker->email,
+        'password'           => \Illuminate\Support\Facades\Hash::make('pass'),
         'active'             => rand(0, 1),
         'gender'             => rand(0, 1) ? 'm' : 'f',
         'birthday'           => $faker->dateTimeBetween('-40 years', '-18 years'),
