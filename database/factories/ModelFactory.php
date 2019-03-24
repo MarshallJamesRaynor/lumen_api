@@ -80,7 +80,6 @@ $factory->define(App\Product::class, function (Faker\Generator $faker) {
         'name'               => $faker->word,
         'ean'                => $faker->ean13,
         'merchant_id'       => App\Merchant::all()->random()->id,
-        'quantity_discount'  => $faker->numberBetween($min = 0, $max = 50),
         'out_of_stock'       => rand(0, 1),
         'on_sale'            => rand(0, 1),
         'active'             => rand(0, 1),

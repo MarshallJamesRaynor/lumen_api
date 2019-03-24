@@ -13,6 +13,11 @@ class Order extends Model{
     }
 
     protected $fillable = [
-        'uuid'
+        'uuid','user_id'
     ];
+
+
+    public function total(){
+        return $this->total_products  + $this->total_paid_tax - $this->total_discount;
+    }
 }

@@ -10,8 +10,6 @@ use App\User;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\User as UserResource;
 
-use Illuminate\Support\Facades\Mail;
-
 class UserController extends BaseController
 {
     /**
@@ -21,46 +19,32 @@ class UserController extends BaseController
      *
      * @return UserResource
      */
-
-    public function testEmail(){
-        Mail::raw('ciao ', function($msg) { $msg->to(['p.combi84@gmail.com']); });
-        return '1';
-    }
-
-    public function index()
-    {
+    public function index(){
         return new UserCollection(User::paginate());
     }
 
-    public function show($uuid)
-    {
+    public function show($uuid){
         $validator = Validator::make(['uuid' => $uuid],['uuid' => 'uuid']);
         if($validator->passes()){
             return new UserResource(User::findByUuid($uuid));
+        }else{
+            return $validator->errors();
         }
     }
 
 
     public function create(){
-        return factory(User::class, 1)->create();
-
+        $user =  factory(User::class, 1)->create();
+        return new ProductResource(User::findByUuid($user[0]->uuid));
     }
 
 
-
-    public function store(Request $request)
-    {
-        return new UserResource($request);
+    public function store(Request $request){
     }
 
-
-    public function update(Request $request)
-    {
-
+    public function update(Request $request){
     }
 
-    public function destroy(Request $request)
-    {
-
+    public function destroy(Request $request){
     }
 }

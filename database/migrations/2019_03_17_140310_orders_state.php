@@ -18,6 +18,7 @@ class OrdersState extends Migration
             $table->foreign('order_id')->references('id')->on('orders');
             $table->string('custom_email',254);
             $table->boolean('send_email')->default(false);
+            $table->string('invoices_types')->nullable();
             $table->boolean('send_invoice')->default(false);
             $table->timestamps();
         });

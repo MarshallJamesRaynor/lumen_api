@@ -1,7 +1,4 @@
 <?php
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -15,44 +12,27 @@
 
 
 $router->group(['prefix' => 'api/v1','middleware'=>'auth'], function ($router) {
+
     $router->group(['prefix' => '/user'], function ($router) {
         $router->get('/create', 'UserController@create');
-        $router->get('/',[
-            'as' => 'user.index',
-            'uses' => 'UserController@index'
-        ]);
-        $router->get('{uuid}',[
-            'as' => 'user.show',
-            'uses' => 'UserController@show'
-        ]);
-
+        $router->get('/',['as' => 'user.index', 'uses' => 'UserController@index']);
+        $router->get('{uuid}',['as' => 'user.show', 'uses' => 'UserController@show']);
     });
 
     $router->group(['prefix' => '/product'], function ($router) {
         $router->get('/create', 'ProductController@create');
-        $router->get('/',[
-            'as' => 'product.index',
-            'uses' => 'ProductController@index'
-        ]);
-        $router->get('{uuid}',[
-            'as' => 'product.show',
-            'uses' => 'ProductController@show'
-        ]);
+        $router->get('/',['as' => 'product.index', 'uses' => 'ProductController@index']);
+        $router->get('{uuid}',['as' => 'product.show', 'uses' => 'ProductController@show']);
     });
     $router->group(['prefix' => '/order'], function ($router) {
-        $router->post('/', [
-            'middleware' => [
-                'beforeOrder',
-                'afterOrder'
-            ],
-            'uses'=>'OrderController@store'
-        ]);
-        $router->get('/', 'OrderController@index');
-        $router->get('{uuid}','OrderController@show');
-
+        $router->post('/', ['middleware' => ['validateOrder', 'afterOrder'], 'uses'=>'OrderController@store']);
+        $router->get('/', ['as' => 'order.index', 'uses' => 'OrderController@index']);
+        $router->get('{uuid}',['as' => 'order.show', 'uses' => 'OrderController@show']);
     });
 });
 
+
+/*
 $router->group(['prefix' => 'api/v2'], function ($router) {
     $router->group(['prefix' => '/user'], function ($router) {
         $router->post('/', 'UserController@store');
@@ -70,7 +50,7 @@ $router->group(['prefix' => 'api/v2'], function ($router) {
         $router->delete('{uuid}', 'OrderController@destroy');
     });
 });
-
+*/
 
 
 

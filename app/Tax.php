@@ -15,4 +15,7 @@ class Tax extends Model{
         );
     }
 
+    public function orderItems(){
+        return $this->hasMany('App\OrderItem');
+    }
 }

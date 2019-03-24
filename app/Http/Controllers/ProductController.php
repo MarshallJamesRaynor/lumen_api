@@ -32,19 +32,12 @@ class ProductController extends BaseController
             if($product = Product::findByUuid($uuid)){
                 return new ProductResource($product);
             }else{
-                return $this->customErrorFormat(
-                    422,
-                    '/data/uuid',
-                    'Invalid Attribute',
-                    'uuid you give not exist');
+                return $validator->errors();
             }
         }else{
-             return $this->customErrorFormat(
-                422,
-                '/data/uuid',
-                'Invalid Attribute',
-                'uuid you give is wrong');
+            return $validator->errors();
         }
+
 
     }
 
@@ -59,6 +52,7 @@ class ProductController extends BaseController
         $product = factory(Product::class, 1)->create();
         return new ProductResource(Product::findByUuid($product[0]->uuid));
     }
+
 
     public function update(Request $request){
     }

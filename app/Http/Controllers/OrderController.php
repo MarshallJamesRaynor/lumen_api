@@ -2,44 +2,70 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 use Validator;
-use Webpatser\Uuid\Uuid;
-use App\Order;
-use App\Http\Requests\OrderStoreRequest;
 use Auth;
+use App\Order;
+use App\User;
+use App\OrderState;
+use App\Http\Resources\OrderCollection;
+use App\Http\Resources\Order as OrderResource;
+use App\Services\OrderGeneratorService;
+use App\Jobs\SendEmailJob;
+
 class OrderController extends BaseController
 {
+    /**
+     * @var OrderGeneratoServiceProvider
+     */
+    protected $orderGeneratorService;
 
-    public function index()
-    {
-        return Auth::user()->id;
+    /**
+     * ExampleController constructor.
+     * @param NameService $nameService
+     */
+    public function __construct(OrderGeneratorService $orderGeneratorService){
+        $this->orderGeneratorService = $orderGeneratorService;
     }
 
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'email',
-            'country' => 'required|string|max:50',
-            'format_invoice' => 'required|string|max:50',
-            'sent_email' => 'required|boolean',
-            'product.*.uuid' => 'required|uuid',
-            'product.*.quantity' => 'required|numeric',
-        ]);
+
+    public function index(){
+        return new OrderCollection(Order::paginate());
+    }
+
+    public function show($uuid){
+        $validator = Validator::make(['uuid' => $uuid],['uuid' => 'uuid']);
+        if($validator->passes()){
+            return new OrderResource(Order::findByUuid($uuid));
+        }
+    }
 
 
-        $order =  Order::create(['uuid'=>(string) Uuid::generate()]);
-        $order->orderItems()->create([
-            'product_id'=>1,
-            'tax_id'=>1,
-            'quantity'=>11,
-            'price'=>1,
-            'discounted_price'=>1,
-            'taxes_price'=>1
+    public function store(Request $request){
+        $order = $this->orderGeneratorService->make($request);
+        $orderStatus =OrderState::create([
+                'order_id'=> $order->id,
+                'custom_email'=>$request['email'],
+                'send_email'=> boolval($request['send_email']),
+                'invoices_types'=>$request['format_invoice']
         ]);
+        $data  = ['order' => $order, 'userdata'=>Auth::user()->addresses->random(), 'orderItems'=> $order->orderItems,'email'=>$request['email']];
+
+        if($request['format_invoice'] =='html'){
+            return view('emails.invoice', $data);
+        }else{
+            return new OrderResource($order);
+        }
+
+        if($request['send_email']) {
+            dispatch(new SendEmailJob($data));
+        }
 
     }
+
+
 
     public function update(Request $request){
 
@@ -48,4 +74,5 @@ class OrderController extends BaseController
     public function destroy(Request $request){
 
     }
+
 }

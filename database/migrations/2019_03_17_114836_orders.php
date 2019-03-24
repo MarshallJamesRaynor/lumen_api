@@ -30,7 +30,6 @@ class Orders extends Migration
             $table->decimal('total_paid',10,2)->nullable();
             $table->decimal('total_paid_tax',10,2)->nullable();
             $table->integer('invoices_number')->nullable();
-            $table->string('invoices_types')->nullable();
             $table->dateTime('invoices_data')->nullable();
             $table->timestamps();
             $table->softDeletes();
