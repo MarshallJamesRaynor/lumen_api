@@ -59,7 +59,7 @@ class UserController extends BaseController
         if($validator->passes()){
             return new UserResource(User::findByUuid($uuid));
         }else{
-            return $validator->errors();
+            return response()->json($validator->errors(), 422);
         }
     }
 

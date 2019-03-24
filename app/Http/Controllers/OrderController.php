@@ -83,6 +83,8 @@ class OrderController extends BaseController
         $validator = Validator::make(['uuid' => $uuid],['uuid' => 'uuid']);
         if($validator->passes()){
             return new OrderResource(Order::findByUuid($uuid));
+        }else{
+            return response()->json($validator->errors(), 422);
         }
     }
 

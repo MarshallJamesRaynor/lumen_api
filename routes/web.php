@@ -13,15 +13,17 @@
 
 $router->group(['prefix' => 'api/v1','middleware'=>'auth'], function ($router) {
     $router->group(['prefix' => '/user'], function ($router) {
-        $router->get('/create', 'UserController@create');
         $router->get('/',['as' => 'user.index', 'uses' => 'UserController@index']);
         $router->get('{uuid}',['as' => 'user.show', 'uses' => 'UserController@show']);
+        $router->post('/create', 'UserController@create');
+
     });
 
     $router->group(['prefix' => '/product'], function ($router) {
-        $router->get('/create', 'ProductController@create');
         $router->get('/',['as' => 'product.index', 'uses' => 'ProductController@index']);
         $router->get('{uuid}',['as' => 'product.show', 'uses' => 'ProductController@show']);
+        $router->post('/create', 'ProductController@create');
+
     });
     $router->group(['prefix' => '/order'], function ($router) {
         $router->post('/', ['middleware' => ['validateOrder', 'afterOrder'], 'uses'=>'OrderController@store']);

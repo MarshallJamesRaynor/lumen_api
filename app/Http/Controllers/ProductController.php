@@ -53,10 +53,10 @@ class ProductController extends BaseController
             if($product = Product::findByUuid($uuid)){
                 return new ProductResource($product);
             }else{
-                return $validator->errors();
+                return response()->json($validator->errors(), 422);
             }
         }else{
-            return $validator->errors();
+            return response()->json($validator->errors(), 422);
         }
 
 

@@ -21,7 +21,7 @@ namespace App\Traits;
  * UuidTraits
  *
  * Traits use to extends model function for the UUID field
- * 
+ *
  * @package     lamiassignment
  * @category    Traits
  * @author      Paolo Combi
