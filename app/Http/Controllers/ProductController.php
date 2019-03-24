@@ -1,28 +1,49 @@
 <?php
+/**
+ * Name:  OrderController
+ * Project: Lamia OY Practical Task
+ * @package    lamiassignment
+ * Created: 23.03.2019*
+ * Description: class used to manage product
+ *
+ * Requirements: PHP5 or above
+ * @package   lamiassignment
+ * @author    Paolo Combi
+ * @license   http://opensource.org/licenses/MIT    MIT License
+ * @since     Version 1.0.0
+ * @filesource
+ *
+ *
+ */
 
 namespace App\Http\Controllers;
 use Laravel\Lumen\Routing\Controller as BaseController;
 
 use Validator;
 use Illuminate\Http\Request;
-
 use App\Product;
 use App\Http\Resources\ProductCollection;
 use App\Http\Resources\Product as ProductResource;
 
-use Webpatser\Uuid\Uuid;
-
-
+/**
+ * ProductController
+ *
+ * controller use to manage product API
+ *
+ * @package     lamiassignment
+ * @category    Controllers
+ * @author      Paolo Combi
+ */
 class ProductController extends BaseController
-{
-    use \App\Traits\ErrorTraits;
 
+
+{
     /**
-     * Display the specified resource.
+     * show
      *
-     * @param  \App\User $user
-     *
-     * @return UserResource
+     * Display the specified Product.
+     * @param  uuid $uuid
+     * @return ProductResource
      */
     public function show($uuid){
 
@@ -41,22 +62,28 @@ class ProductController extends BaseController
 
     }
 
+    /**
+     * index
+     *
+     * Display list of Product.
+     *
+     * @return ProductCollection
+     */
     public function index(){
         return new ProductCollection(Product::paginate());
     }
 
-    public function store(Request $request){
-        return new ProductResource($request);
-    }
+    /**
+     * create
+     *
+     * create and display a fake product
+     *
+     * @return ProductResource
+     */
     public function create(){
         $product = factory(Product::class, 1)->create();
         return new ProductResource(Product::findByUuid($product[0]->uuid));
     }
 
 
-    public function update(Request $request){
-    }
-
-    public function destroy(Request $request){
-    }
 }

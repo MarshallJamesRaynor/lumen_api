@@ -1,6 +1,6 @@
 <?php
 /**
- * Name:  Address
+ * Name:  CustomerBenefit
  * Project: Lamia OY Practical Task
  * @package    lamiassignment
  * Created: 23.03.2019*
@@ -15,11 +15,11 @@
  *
  *
  */
-namespace App;
+namespace App\Library;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Address
+ * CustomerBenefit
  *
  * class used to store possible discount for the customers
  *
@@ -27,7 +27,29 @@ use Illuminate\Database\Eloquent\Model;
  * @category    Model
  * @author      Paolo Combi
  */
-class Address extends Model
+class CustomerBenefit extends PriceAdjuster
 {
+    /**
+     * discount value
+     *
+     * @var float
+     */
+    protected $discount;
 
+    public function __construct($discount){
+        if ($discount > 100) throw new Exception("cannot have a discount over 100%");
+        $this->discount = $discount;
+    }
+
+
+    /**
+     * discount
+     *
+     * function use to give back the discount
+     * @return  discount
+     */
+    public function discount()
+    {
+        return $this->discount;
+    }
 }

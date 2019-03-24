@@ -1,7 +1,31 @@
 <?php
-
+/**
+ * Name:  UuidTraits
+ * Project: Lamia OY Practical Task
+ * @package    lamiassignment
+ * Created: 23.03.2019*
+ * Description: Traits class
+ *
+ * Requirements: PHP5 or above
+ * @package   lamiassignment
+ * @author    Paolo Combi
+ * @license   http://opensource.org/licenses/MIT    MIT License
+ * @since     Version 1.0.0
+ * @filesource
+ *
+ *
+ */
 namespace App\Traits;
 
+/**
+ * UuidTraits
+ *
+ * Traits use to extends model function for the UUID field
+ * 
+ * @package     lamiassignment
+ * @category    Traits
+ * @author      Paolo Combi
+ */
 trait UuidTraits
 {
     public static function bootHasUUID()

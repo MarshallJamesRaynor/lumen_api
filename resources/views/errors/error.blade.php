@@ -19,7 +19,5 @@
     <p class="output">
         Good luck
     </p>
-
 </div>
-
 </html>
