@@ -5,13 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model{
+
+    protected $table = 'countries';
+    protected $primaryKey = 'id';
+
     public function taxes(){
-        return $this->belongsToMany(
-            'App\Tax',
-            'tax_country',
-            'country_id',
-            'tax_id'
-        );
+        return $this->belongsToMany('App\Tax', 'tax_country', 'country_id', 'tax_id');
 
     }
 

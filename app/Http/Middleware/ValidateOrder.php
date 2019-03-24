@@ -17,7 +17,7 @@ class ValidateOrder
     {
         $validator = Validator::make($request->all(), [
             'email' => 'email',
-            'country' => 'required|string|max:50',
+            'country' => 'required|string|exists:countries,name',
             'format_invoice' =>  [
                 'required',
                 Rule::in(['json', 'html']),

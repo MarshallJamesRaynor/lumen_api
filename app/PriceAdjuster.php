@@ -1,6 +1,9 @@
 <?php
 namespace App;
+use Auth;
+
 use App\OrderItem;
+use Webpatser\Uuid\Uuid;
 
 use Illuminate\Support\Collection;
 
@@ -29,17 +32,19 @@ class PriceAdjuster
             }
             $item->taxes_price = round($item->price() * ($item->taxes->rate / 100 ),2);
             $item->discounted_price = round($item->price() * ( $customerDiscount / 100), 2);
-
+            $this->order->total_products += $item->price();
+            $this->order->total_discount += $item->discounted_price;
+            $this->order->total_paid_tax += $item->taxes_price;
         }
     }
 
 
 
-    protected function addProduct(Product $product,$quantity)
+    protected function addProduct(Product $product,$quantity,$taxId)
     {
         $orderItem = new OrderItem();
         $orderItem->product_id =$product->id;
-        $orderItem->tax_id=1;
+        $orderItem->tax_id=$taxId;
         $orderItem->quantity=$quantity;
         $orderItem->price=$product->price;
         $this->addToCollection($this->item, $orderItem);

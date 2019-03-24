@@ -1,12 +1,12 @@
 <?php
 namespace App\Services;
-use Auth;
 use App\Order;
+use Auth;
 
 use DB;
 use App\Product;
+use App\Country;
 
-use Webpatser\Uuid\Uuid;
 use App\Http\Requests\OrderStoreRequest;
 use App\PriceAdjuster;
 use App\CustomerBenefit;
@@ -21,7 +21,10 @@ class OrderGeneratorService extends PriceAdjuster
 
         foreach ($request->product  as $productOrdered){
             $product = Product::findByUuid($productOrdered['uuid']);
-            $this->addProduct($product,$productOrdered['quantity']);
+            $country = Country::where('name',$request['country'])->get();
+            $taxId =  Country::find($country[0]->id)->taxes()->first()->id;
+
+            $this->addProduct($product,$productOrdered['quantity'],$taxId);
         }
 
         if($this->saveOrder()){
@@ -40,6 +43,7 @@ class OrderGeneratorService extends PriceAdjuster
                 $item->order_id = $this->order->id;
                 $item->save();
             });
+            $this->order->total_paid = $this->order->total();
             $this->order->invoices_number = rand(0,99999);
             $this->order->invoices_data = Carbon::today();
             $this->order->save();

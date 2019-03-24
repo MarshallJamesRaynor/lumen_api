@@ -45,6 +45,7 @@ class OrderController extends BaseController
 
     public function store(Request $request){
         $order = $this->orderGeneratorService->make($request);
+
         $orderStatus =OrderState::create([
                 'order_id'=> $order->id,
                 'custom_email'=>$request['email'],
